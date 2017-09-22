@@ -1,0 +1,68 @@
+
+=====================================================================
+PageRank calculation 
+  for determining Al3+ coordination structure in solution
+=====================================================================
+
+1. to run this code, you need a trajectory file from MD. this code will produce:
+  Output : the neat output file, summarizes some key properties
+  Cluster.xyz : the structure output file of all the Al clusters, in the xyz-trajectory format
+  *.Graph-*  : the weighted graph files for every Al cluster, at every snapshot
+  *.PR-*    : the calculated PageRank vector for every Al cluster, at every snapshot
+
+2. before compiling this code, make sure that the Box-size are correct in the header of this source code
+
+3. commpiling the code (for example, )
+
+4. run this code, (it requires some interactively entered numbers)
+
+  example of running this code for the test are:
+
+---------------------------------------------------
+buttercup:combine-PR-calculation tiecheng$ ./cal_pageranks_tz_May26.exe test.xyz 
+Enter local Al cluster size
+3.3                           ! this is in unit of Ang, so select local Al cluster so that OH- or H2O is within this distance
+To create Al..O graph?
+ Enter 1(yes) or 0 (no)
+1
+ graph Al..O, enter the cutoff
+2.5                           ! this is in unit of Ang, this cutoff is used to construct the Al..O weighted graph 
+To create O..O graph?
+ Enter 1(yes) or 0 (no)
+1
+ graph O..O, enter the cutoff
+3.0                            ! this is in unit of Ang, this cutoff is used to construct the O..O weighted graph
+To create O..H graph?
+ Enter 1(yes) or 0 (no)
+1
+ graph O..H, enter the cutoff
+1.0                            ! this is in unit of Ang, this cutoff is used to construct the H..O weighted graph
+Enter damping factor for pagerank calculation, (0 ~ 1)
+0.9                            !  this is a damping factor in PageRank calculation
+To calculate PageRank of whole system?
+ Enter 1(yes) or 0(no)
+0                              ! if the system has multiple Al, this option is to calculate the whole graph from all Al clusters
+
+
+
+below are the example ouput information on screen
+----------------------------------------------------------------
+Summary: Boxsize 14.300000 14.300000 14.300000, Array size 10000 
+Summary: cluster size to Al center is 3.300000
+Summary: Graph-Al-O 1, cutoff 2.500000
+Summary: Graph-O-O 1, cutoff 3.000000
+Summary: Graph-O-H 1, cutoff 1.000000
+Summary: PageRank damping factor 0.900000
+Summary: PageRank calculation of whole box 0
+
+
+ snap 1 Al-id 1 : CN 5.000000 CS 1.000000 PR(Al) 9.092693e-02 PR(O)-avg 1.095577e-01 PR(O)-diff 3.087465e-02 fCN 4.998823 
+ snap 2 Al-id 1 : CN 5.000000 CS 1.000000 PR(Al) 9.093557e-02 PR(O)-avg 1.095671e-01 PR(O)-diff 3.086587e-02 fCN 4.998819 
+ snap 3 Al-id 1 : CN 5.000000 CS 1.000000 PR(Al) 9.096307e-02 PR(O)-avg 1.095825e-01 PR(O)-diff 3.086578e-02 fCN 4.998814 
+ snap 4 Al-id 1 : CN 5.000000 CS 1.000000 PR(Al) 9.100739e-02 PR(O)-avg 1.096034e-01 PR(O)-diff 3.087456e-02 fCN 4.998808 
+ snap 5 Al-id 1 : CN 5.000000 CS 0.000000 PR(Al) 9.604661e-02 PR(O)-avg 1.114897e-01 PR(O)-diff 3.088409e-02 fCN 4.998802 
+ snap 6 Al-id 1 : CN 5.000000 CS 0.000000 PR(Al) 9.608478e-02 PR(O)-avg 1.115231e-01 PR(O)-diff 3.091316e-02 fCN 4.998795 
+ snap 7 Al-id 1 : CN 5.000000 CS 0.000000 PR(Al) 9.612028e-02 PR(O)-avg 1.115569e-01 PR(O)-diff 3.094578e-02 fCN 4.998788 
+ snap 8 Al-id 1 : CN 5.000000 CS 0.000000 PR(Al) 9.614608e-02 PR(O)-avg 1.115885e-01 PR(O)-diff 3.097830e-02 fCN 4.998779 
+ snap 9 Al-id 1 : CN 5.000000 CS 0.000000 PR(Al) 9.615738e-02 PR(O)-avg 1.116167e-01 PR(O)-diff 3.100797e-02 fCN 4.998769
+
