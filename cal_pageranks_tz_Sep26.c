@@ -16,7 +16,7 @@
 #define Boxz 14.3
 #define Factor 1.0  // the factor in fermi function or power function, make pagerank smooth
 #define CNfactor 20  // this is used in determining coordination number
-#define Coordcut 3.3 // the cutoff range in definiting coordination number of Na, I rename Na as Al (Jun 22,2017)
+#define Coordcut 2.3 // the cutoff range in definiting coordination number of Al
 #define CovOHcut 1.3 // the cutoff of covalent OH bond, used to define charge state
 #define Convtol 0.00001  // the tolerance of convergence in pagerank calculation
 
@@ -284,6 +284,7 @@ int main(int argc, char *argv[])
 		ffp = fopen(filename,"w");
 		for(i=1;i<=ntot;i++)
 			fprintf(ffp, "%e  %e  %e  \n",fxyz[i][0], fxyz[i][1], fxyz[i][2]);
+		fclose(ffp);
 
 		// here is the analysis for the whole box
 		if(wholebox == 1)
@@ -300,7 +301,6 @@ int main(int argc, char *argv[])
 	fclose(fip);
 	fclose(fop);
 	fclose(fpp);
-	fclose(ffp);
 
 	return(0);
 }
@@ -476,9 +476,9 @@ int myanalysis(double res[10], int snap, int idAl, int ntot, char Labels[Size][2
 					tempdist = distAlO = sqrt( pow(Ox-Alx,2)+pow(Oy-Aly,2)+pow(Oz-Alz,2) );
 					Amatrix[mi][mj] = Amatrix[mj][mi] = myfermi(distAlO,cutoffAlO,Factor);   // undirect graph is used, treat as double-sized graph
 					distmatrix[mi][mj] = distmatrix[mj][mi] = distAlO;
-					xmatrix[mi][mj] = Ox - Alx; xmatrix[mi][mj] = Alx - Ox;
-					ymatrix[mi][mj] = Oy - Aly; ymatrix[mi][mj] = Aly - Oy;
-					zmatrix[mi][mj] = Oz - Alz; zmatrix[mi][mj] = Alz - Oz;
+					xmatrix[mi][mj] = Ox - Alx; xmatrix[mj][mi] = Alx - Ox;
+					ymatrix[mi][mj] = Oy - Aly; ymatrix[mj][mi] = Aly - Oy;
+					zmatrix[mi][mj] = Oz - Alz; zmatrix[mj][mi] = Alz - Oz;
 				}
 			}
 			if(graphOO==1)  // construct O..O graph
