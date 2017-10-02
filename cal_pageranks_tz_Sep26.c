@@ -927,9 +927,9 @@ if(getforce == 1)  //
 			{
 				for(dn=0; dn<numatom; dn++)
 				{
-					dPRdx[dk][di] += GJmatrix[dk][dm+numatom] * dampingf * dSmatrixdx[dm][dn][di] * PRi[di];
-					dPRdy[dk][di] += GJmatrix[dk][dm+numatom] * dampingf * dSmatrixdy[dm][dn][di] * PRi[di];
-					dPRdz[dk][di] += GJmatrix[dk][dm+numatom] * dampingf * dSmatrixdz[dm][dn][di] * PRi[di];
+					dPRdx[dk][di] += GJmatrix[dk][dm+numatom] * dampingf * dSmatrixdx[dm][dn][di] * PRi[dn];   // revised from PRi[di] to PRi[dn], dm, dn are dummy variables of the summation
+					dPRdy[dk][di] += GJmatrix[dk][dm+numatom] * dampingf * dSmatrixdy[dm][dn][di] * PRi[dn];
+					dPRdz[dk][di] += GJmatrix[dk][dm+numatom] * dampingf * dSmatrixdz[dm][dn][di] * PRi[dn];
 				}
 			}
 		}
