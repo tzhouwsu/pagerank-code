@@ -11,12 +11,12 @@
 
 #define FLN 1000
 #define Size 10000   // maximum number of atoms in the system
-#define Boxx 14.3   // system box size of this 'test.xyz' is 14.3 Ang
-#define Boxy 14.3
-#define Boxz 14.3
+#define Boxx 13.9   // system box size is 13.9 Ang
+#define Boxy 13.9
+#define Boxz 13.9
 #define Factor 1.0  // the factor in fermi function or power function, make pagerank smooth
 #define CNfactor 20  // this is used in determining coordination number
-#define Coordcut 2.3 // the cutoff range in definiting coordination number of Al
+#define Coordcut 3.2 // the cutoff range in definiting coordination number of Na (here renamed as Al)
 #define CovOHcut 1.3 // the cutoff of covalent OH bond, used to define charge state
 #define Convtol 0.00001  // the tolerance of convergence in pagerank calculation
 
@@ -204,7 +204,7 @@ int main(int argc, char *argv[])
 					sx=xyz[i][0]; sy=xyz[i][1]; sz=xyz[i][2];
 					sx=pbcshift(sx,cx,'x'); sy=pbcshift(sy,cy,'y'); sz=pbcshift(sz,cz,'z');
 					temp=sqrt( pow(sx-cx,2) + pow(sy-cy,2) + pow(sz-cz,2) );
-//printf(" %d %d %f\n",k,i,temp);
+//printf(" %d %d %f %f %f %f %f %f %f\n",k,i,temp,cx,cy,cz,sx,sy,sz);
 					if(temp < Coordcut)  // coordination number using Al..O cutoff of 2.3
 					{
 						cn++;
@@ -1350,27 +1350,51 @@ double pbcshift(double inp, double center, char dim)
 	if(dim == 'x' || dim == 'X')
 	{
 		if(inp - center > Boxx/2)
+		{
 			out=inp-Boxx;
+			while(out - center > Boxx/2)     // this may happen in AIMD, that the atom distance are 2 PBC (or more) apart
+				out = out - Boxx;
+		}
 		else if(inp - center < -1*Boxx/2)
+		{
 			out=inp+Boxx;
+			while(out - center < -1*Boxx/2)
+				out = out + Boxx;
+		}
 		else
 			out=inp;
 	}
 	else if (dim == 'y' || dim == 'Y')
 	{
 		if(inp - center > Boxy/2)
+		{
 			out=inp-Boxy;
+			while(out - center > Boxy/2)
+				out = out - Boxy;
+		}
 		else if(inp - center < -1*Boxy/2)
+		{
 			out=inp+Boxy;
+			while(out - center < -1*Boxy/2)
+				out = out + Boxy;
+		}
 		else
 			out=inp;
 	}
 	else if(dim == 'z' || dim == 'Z')
 	{
 		if(inp - center > Boxz/2)
+		{
 			out=inp-Boxz;
+			while(out - center > Boxz/2)
+				out = out - Boxz;
+		}
 		else if(inp - center < -1*Boxz/2)
+		{
 			out=inp+Boxz;
+			while(out - center < -1*Boxz/2)
+				out = out + Boxz;
+		}
 		else
 			out=inp;
 		
