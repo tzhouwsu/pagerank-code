@@ -205,7 +205,7 @@ int main(int argc, char *argv[])
 					cx=xyz[i][0]; cy=xyz[i][1]; cz=xyz[i][2];
 					for(j=1;j<=ntot;j++)
 					{
-						if(label[j][0] == 'H' || label[j][1] == 'h')
+						if(label[j][0] == 'H' || label[j][0] == 'h')
 						{
 							Hx=xyz[j][0]; Hy=xyz[j][1]; Hz=xyz[j][2];
 							Hx=pbcshift(Hx,cx,'x'); Hy=pbcshift(Hy,cy,'y'); Hz=pbcshift(Hz,cz,'z');
