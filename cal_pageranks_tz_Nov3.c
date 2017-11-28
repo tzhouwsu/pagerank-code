@@ -1050,9 +1050,9 @@ if(getforce == 1)  //
 		dk = graphid[di+1];  // this is the node id in the selected cluster
 		dm = sindex[dk];   // this is the original atom id
 
-		Nforcex[dm] = kbias * (PRi[0] - target) * dPRdx[0][di];
-		Nforcey[dm] = kbias * (PRi[0] - target) * dPRdy[0][di];
-		Nforcez[dm] = kbias * (PRi[0] - target) * dPRdz[0][di];
+		Nforcex[dm] = -1.0 * kbias * (PRi[0] - target) * dPRdx[0][di];
+		Nforcey[dm] = -1.0 * kbias * (PRi[0] - target) * dPRdy[0][di];
+		Nforcez[dm] = -1.0 * kbias * (PRi[0] - target) * dPRdz[0][di];
 
 		fprintf(ffp,"%d %d %d %e %e %e\n",di+1,dk,dm,Nforcex[dm],Nforcey[dm],Nforcez[dm]);
 	}
