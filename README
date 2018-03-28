@@ -1,4 +1,9 @@
 
+Updates: this PageRank calculation has been implemented into ChemNetworks,
+
+  see https://github.com/AClarkLab
+
+
 =====================================================================
 PageRank calculation 
   for determining Al3+ coordination structure in solution
